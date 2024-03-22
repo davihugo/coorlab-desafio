@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="container">
     <Navbar />
     <div class="rectangle">
@@ -38,11 +38,11 @@
     <div v-if="results.length > 0">
       <h2>Resultados</h2>
       <ul>
-        <li v-for="(result, index) in sortedResults" :key="index < 2">
-          <p>{{ result ? result.city : "" }}</p>
-          <p>{{ result ? result.duration : "" }}</p>
-          <p>{{ result ? result.price_confort : "" }}</p>
-          <p>{{ result ? result.price_econ : "" }}</p>
+        <li v-for="result in results" :key="result.id">
+          <p>{{ result.city }}</p>
+          <p>{{ result.duration }}</p>
+          <p>{{ result.price_confort }}</p>
+          <p>{{ result.price_econ }}</p>
         </li>
       </ul>
     </div>
@@ -66,22 +66,10 @@ export default {
       results: [],
     };
   },
-  computed: {
-    sortedResults() {
-      return this.results.sort((a, b) => {
-        // Ordena primeiro por duração e depois por preço de conforto
-        if (a.duration !== b.duration) {
-          return a.duration - b.duration;
-        } else {
-          return a.price_confort - b.price_confort;
-        }
-      });
-    },
-  },
   methods: {
     onSubmit() {
       axios
-        .get("http://127.0.0.1:8080/api/data-json/", {
+        .post("http://localhost:5000/viagens/buscar", {
           params: {
             destination: this.destination,
             date: this.date,
@@ -92,13 +80,9 @@ export default {
           this.results = response.data.transport;
         })
         .catch((error) => {
-          console.error(error);
+          console.error("Erro ao buscar viagens:", error);
         });
     },
-  },
-  mounted() {
-    console.log("Data:", this.date);
-    console.log("Destination:", this.destination);
   },
 };
 </script>
