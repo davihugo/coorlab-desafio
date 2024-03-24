@@ -16,27 +16,35 @@ export default {
   components: {
     BIcon,
   },
-  props: {},
   data() {
     return {
-      // ...
+      isSidebarOpen: false
     };
   },
-  computed: {
-    // ...
-  },
-  watch: {
-    // ...
-  },
   methods: {
-    // ...
-  },
-  mounted() {
-    // ...
-  },
+    toggleSidebar() {
+      this.isSidebarOpen = !this.isSidebarOpen;
+    }
+  }
 };
 </script>
 <style>
+
+/* responsividade */
+
+.sidebar-open {
+  width: 200px; 
+  transition: width 0.3s ease; 
+}
+
+.sidebar-closed {
+  width: 50px;
+  transition: width 0.3s ease; 
+}
+
+/* FIM responsividade */
+
+
 .sidebar {
   width: 300px;
   height: 100%;
@@ -71,5 +79,23 @@ export default {
 
 .calculator .b-icon {
   font-size:17px;
+}
+
+/* responsividade */
+
+
+@media (max-width: 1400px) {
+  .sidebar {
+    width: 100%; 
+    position: fixed; 
+    left: 0;
+    top: 0; 
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease-in-out; 
+  }
+
+  .sidebar.open { 
+    transform: translateX(0); 
+  }
 }
 </style>

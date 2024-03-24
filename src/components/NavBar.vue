@@ -33,4 +33,12 @@ export default {
   /* SOMBREADO */
   box-shadow: 0px 0px 10px rgba(12, 12, 12, 0.5);
 }
+
+/* responsividade */
+@media screen and (max-width: 1400px) {
+  .navbar {
+    width: 100%; 
+    margin-left: 0; 
+  }
+}
 </style>
